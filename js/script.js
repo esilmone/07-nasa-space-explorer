@@ -59,9 +59,50 @@ getImagesButton.addEventListener('click', () => {
           <p>${item.date}</p>
         `;
 
+        // Add click event to open modal with more info
+        div.addEventListener('click', () => {
+          openModal(item);
+        });
+
         // Add the gallery item to the gallery
         gallery.appendChild(div);
       });
+// Modal creation
+// Create modal HTML and add to body (only once)
+let modal = document.getElementById('imageModal');
+if (!modal) {
+  modal = document.createElement('div');
+  modal.id = 'imageModal';
+  modal.style.display = 'none';
+  modal.innerHTML = `
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <img class="modal-img" src="" alt="" />
+      <h2 class="modal-title"></h2>
+      <p class="modal-date"></p>
+      <p class="modal-explanation"></p>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+// Function to open modal with image info
+function openModal(item) {
+  modal.style.display = 'flex';
+  modal.querySelector('.modal-img').src = item.hdurl || item.url;
+  modal.querySelector('.modal-img').alt = item.title;
+  modal.querySelector('.modal-title').textContent = item.title;
+  modal.querySelector('.modal-date').textContent = item.date;
+  modal.querySelector('.modal-explanation').textContent = item.explanation;
+}
+
+// Close modal on click of close button or backdrop
+modal.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal-backdrop')) {
+    modal.style.display = 'none';
+  }
+});
     })
     .catch(error => {
       // Log any errors
