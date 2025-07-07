@@ -52,21 +52,69 @@ getImagesButton.addEventListener('click', () => {
         const div = document.createElement('div');
         div.className = 'gallery-item';
 
-        // Set the inner HTML with image, title, and date
-        div.innerHTML = `
-          <img src="${item.url}" alt="${item.title}" />
-          <h3>${item.title}</h3>
-          <p>${item.date}</p>
-        `;
+        // Add a loading message with icon
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'img-loading';
+        loadingDiv.innerHTML = '<span class="img-loading-icon">🚀</span><span>Loading image...</span>';
+        div.appendChild(loadingDiv);
+
+        // Create the image element
+        const img = document.createElement('img');
+        img.src = item.url;
+        img.alt = item.title;
+        img.style.display = 'none';
+
+        // When the image loads, hide the loading message and show the image
+        img.onload = () => {
+          loadingDiv.style.display = 'none';
+          img.style.display = 'block';
+        };
+
+        // Set the inner HTML with title and date
+        const title = document.createElement('h3');
+        title.textContent = item.title;
+        const date = document.createElement('p');
+        date.textContent = item.date;
 
         // Add click event to open modal with more info
         div.addEventListener('click', () => {
           openModal(item);
         });
 
-        // Add the gallery item to the gallery
+        // Add elements to the gallery item
+        div.appendChild(img);
+        div.appendChild(title);
+        div.appendChild(date);
         gallery.appendChild(div);
       });
+// Loading icon styles for gallery images
+const style = document.createElement('style');
+style.textContent = `
+.img-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 95%;
+  margin: 5px auto 0 auto;
+  background: rgba(255,255,255,0.7);
+  border-radius: 4px;
+  font-size: 1.1rem;
+  color: #212121;
+  gap: 8px;
+}
+.img-loading-icon {
+  font-size: 2.2rem;
+  margin-bottom: 4px;
+  animation: spin 1.2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+`;
+document.head.appendChild(style);
 // Modal creation
 // Create modal HTML and add to body (only once)
 let modal = document.getElementById('imageModal');

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 /* Modal styles */
 #imageModal {
   display: none;
@@ -152,6 +153,7 @@ body {
   margin-bottom: 10px;
   font-weight: bold;
   letter-spacing: 1px;
+  font-family: 'Orbitron', Verdana, Arial, sans-serif;
 }
 .hero p {
   font-size: 1.2rem;
@@ -207,7 +209,7 @@ button {
 
 /* Button specific */
 button {
-  background-color: var(--secondary1);
+  background-color: #fff;
   color: var(--primary);
   cursor: pointer;
   border: 2px solid var(--primary);
@@ -258,6 +260,7 @@ button:hover {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;
   border: 2px solid var(--primary);
   transition: box-shadow 0.2s, border 0.2s;
 }
@@ -274,18 +277,24 @@ button:hover {
 }
 
 .gallery-item img {
-  width: 100%;
+  width: 95%;
   height: 200px;
+  margin: 5px auto 0 auto;
   object-fit: cover;
   border-radius: 4px;
   border: 2px solid var(--secondary2);
+  display: block;
 }
 
 .gallery-item p {
   margin-top: 10px;
   padding: 5px;
-  font-size: 14px;
-  color: var(--primary);
+  font-size: 16px;
+  color: #212121;
+}
+
+.gallery-item h3 {
+  color: #212121;
 }
 
 /* Placeholder content */
